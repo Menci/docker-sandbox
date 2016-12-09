@@ -1,0 +1,18 @@
+{
+  "name": "docker-sandbox",
+  "version": "0.0.0",
+  "description": "Run unsafe program in docker sandbox",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/Menci/docker-sandbox",
+    "type": "git"
+  },
+  "author": "Menci",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "dockerode": "^2.3.1",
+    "stream-to-array": "^2.3.0",
+    "tar-stream": "^1.5.2"
+  }
+}
