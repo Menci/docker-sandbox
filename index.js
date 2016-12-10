@@ -111,7 +111,7 @@ module.exports = async options => {
           '/lib64:/lib64',
           '/usr/lib:/usr/lib',
           '/usr/lib64:/usr/lib64',
-          '/usr/bin:/usr/bin'
+          '/usr/bin:/usr/bin',
           '/usr/share:/usr/share'
         ]
       }
