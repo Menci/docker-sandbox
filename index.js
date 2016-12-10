@@ -10,7 +10,6 @@ let Docker = require('dockerode');
 let TarStream = require('tar-stream');
 let path = require('path');
 let fs = Promise.promisifyAll(require('fs'));
-let streamToArray = require('stream-to-array');
 let docker = Promise.promisifyAll(new Docker());
 
 async function streamToBuffer(stream) {
@@ -106,7 +105,12 @@ module.exports = async options => {
     let container = await docker.createContainerAsync({
       Image: SANDBOX_DOCKER_IMAGE,
       HostConfig: {
-        NetworkMode: 'none'
+        NetworkMode: 'none',
+        Binds: [
+          '/lib:/lib',
+          '/lib64:/lib64',
+          '/usr/lib:/usr/lib'
+        ]
       }
     });
     Promise.promisifyAll(container);

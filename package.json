@@ -1,6 +1,6 @@
 {
   "name": "docker-sandbox",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Run unsafe program in docker sandbox",
   "main": "index.js",
   "repository": {
@@ -12,7 +12,6 @@
   "dependencies": {
     "bluebird": "^3.4.6",
     "dockerode": "^2.3.1",
-    "stream-to-array": "^2.3.0",
     "tar-stream": "^1.5.2"
   }
 }
