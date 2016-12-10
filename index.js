@@ -109,7 +109,10 @@ module.exports = async options => {
         Binds: [
           '/lib:/lib',
           '/lib64:/lib64',
-          '/usr/lib:/usr/lib'
+          '/usr/lib:/usr/lib',
+          '/usr/lib64:/usr/lib64',
+          '/usr/bin:/usr/bin'
+          '/usr/share:/usr/share'
         ]
       }
     });
