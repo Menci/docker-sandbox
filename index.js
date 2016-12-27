@@ -175,23 +175,30 @@ module.exports = async options => {
     } while (dataExec.Running);
 
     async function getFile(path) {
-      try {
-        let stream = await container.getArchiveAsync({
-          path: path
-        });
+      for (let i = 0; i < 10; i++) {
+        try {
+          let stream = await container.getArchiveAsync({
+            path: path
+          });
 
-        // Convert stream to buffer
-        let buffer = await streamToBuffer(stream);
+          // Convert stream to buffer
+          let buffer = await streamToBuffer(stream);
 
-        let tar = await untar(buffer);
+          let tar = await untar(buffer);
 
-        return tar[0];
-      } catch (e) {
-        return null;
+          return tar[0];
+        } catch (e) {
+          continue;
+        }
       }
+      return null;
     }
 
-    let result = (await getFile('/root/result.txt')).data.toString();
+    let result;
+    while (!result) {
+      result = (await getFile('/root/result.txt')).data.toString();
+      await Promise.delay(50);
+    }
 
     let output_files = [];
     for (let filename of options.output_files) {
