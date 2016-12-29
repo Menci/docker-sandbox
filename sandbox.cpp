@@ -137,9 +137,6 @@ int main(int argc, char **argv) {
             lim.rlim_cur = (memory_limit + memory_limit_reserve) * 1024;
             lim.rlim_max = (memory_limit + memory_limit_reserve) * 1024;
             setrlimit(RLIMIT_AS, &lim);
-
-            lim.rlim_cur = memory_limit;
-            lim.rlim_max = memory_limit;
             setrlimit(RLIMIT_STACK, &lim);
         }
 
