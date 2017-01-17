@@ -24,7 +24,7 @@ bool time_limit_exceeded_killed;
 
 void *watcher_thread(void *arg) {
     sleep(time_limit_to_watch);
-    kill(pid, SIGXCPU);
+    kill(pid, SIGKILL);
     time_limit_exceeded_killed = true;
     return arg; // Avoid 'parameter set but not used' warning
 }
@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
         } else {
             // Signaled
             int sig = WTERMSIG(status);
-            if (sig == SIGXCPU || usage.ru_utime.tv_sec > time_limit) {
+            if (sig == SIGXCPU || usage.ru_utime.tv_sec > time_limit || time_limit_exceeded_killed) {
                 fprintf(fresult, "Time Limit Exceeded\nWEXITSTATUS() = %d, WTERMSIG() = %d (%s)\n", WEXITSTATUS(status), sig, strsignal(sig));
             } else if (sig == SIGXFSZ) {
                 fprintf(fresult, "Output Limit Exceeded\nWEXITSTATUS() = %d, WTERMSIG() = %d (%s)\n", WEXITSTATUS(status), sig, strsignal(sig));
