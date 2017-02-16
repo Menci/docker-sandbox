@@ -1,6 +1,6 @@
 {
   "name": "docker-sandbox",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Run unsafe program in docker sandbox",
   "main": "index.js",
   "repository": {

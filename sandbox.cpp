@@ -30,9 +30,9 @@ void *watcher_thread(void *arg) {
 }
 
 int main(int argc, char **argv) {
-    if (argc != 11 + 1) {
-        fprintf(stderr, "Error: need 11 arguments\n");
-        fprintf(stderr, "Usage: %s program file_stdin file_stdout file_stderr time_limit time_limit_reserve memory_limit memory_limit_reserve output_limit process_limit file_result\n", argv[0]);
+    if (argc != 12 + 1) {
+        fprintf(stderr, "Error: need 12 arguments\n");
+        fprintf(stderr, "Usage: %s program file_stdin file_stdout file_stderr time_limit time_limit_reserve memory_limit memory_limit_reserve large_stack output_limit process_limit file_result\n", argv[0]);
         return 1;
     }
 
@@ -45,13 +45,14 @@ int main(int argc, char **argv) {
          *file_stdin = argv[2],
          *file_stdout = argv[3],
          *file_stderr = argv[4],
-         *file_result = argv[11];
+         *file_result = argv[12];
     long time_limit = parse_long(argv[5]),
          time_limit_reserve = parse_long(argv[6]),
          memory_limit = parse_long(argv[7]),
          memory_limit_reserve = parse_long(argv[8]),
-         output_limit = parse_long(argv[9]),
-         process_limit = parse_long(argv[10]);
+         large_stack = parse_long(argv[9]),
+         output_limit = parse_long(argv[10]),
+         process_limit = parse_long(argv[11]);
 
     time_limit_to_watch = time_limit + time_limit_reserve;
 
@@ -137,7 +138,9 @@ int main(int argc, char **argv) {
             lim.rlim_cur = (memory_limit + memory_limit_reserve) * 1024;
             lim.rlim_max = (memory_limit + memory_limit_reserve) * 1024;
             setrlimit(RLIMIT_AS, &lim);
-            setrlimit(RLIMIT_STACK, &lim);
+            if (large_stack) {
+                setrlimit(RLIMIT_STACK, &lim);
+            }
         }
 
         if (output_limit) {

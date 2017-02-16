@@ -66,6 +66,7 @@ module.exports = async options => {
     time_limit_reserve: 1,
     memory_limit: 0,
     memory_limit_reserve: 32 * 1024,
+    large_stack: 0,
     output_limit: 0,
     process_limit: 0,
     input_files: [],
@@ -156,6 +157,7 @@ module.exports = async options => {
         options.time_limit_reserve.toString(),
         options.memory_limit.toString(),
         options.memory_limit_reserve.toString(),
+        parseInt(options.large_stack + 0).toString(),
         options.output_limit.toString(),
         options.process_limit.toString(),
         SANDBOX_RESULT_PATH
