@@ -198,7 +198,8 @@ module.exports = async options => {
 
     let result;
     while (!result) {
-      result = (await getFile('/root/result.txt')).data.toString();
+      let tmp = await getFile('/root/result.txt');
+      if (tmp && tmp.data) result = tmp.data.toString();
       await Promise.delay(50);
     }
 
